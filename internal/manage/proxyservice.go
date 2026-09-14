@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/localproxy"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/localproxy"
 )
 
 // The built-in-proxy service.

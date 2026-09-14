@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/tunnel/direct"
-	"github.com/backpack/backpack/internal/tunnel/l3"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/tunnel/direct"
+	"github.com/stealthpass/stealthpass/internal/tunnel/l3"
 )
 
 // l3EncapForTest builds the encapsulation the engine would, from what the

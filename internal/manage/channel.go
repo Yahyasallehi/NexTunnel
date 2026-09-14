@@ -4,8 +4,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // Release channels.

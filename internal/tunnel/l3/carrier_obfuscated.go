@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // The obfuscated carriers.

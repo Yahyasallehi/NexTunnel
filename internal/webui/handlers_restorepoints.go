@@ -9,7 +9,7 @@ package webui
 import (
 	"net/http"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // handleRestorePoints lists the snapshots the updater keeps. Read-only: a

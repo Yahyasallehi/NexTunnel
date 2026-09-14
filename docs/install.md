@@ -5,11 +5,11 @@
 One command as root on the VPS:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/BackPack/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/StealthPass/main/install.sh)
 ```
 
 It downloads the prebuilt release archive for your architecture (amd64/arm64)
-into `/root/BackPack`, **verifies it against the checksum published with the
+into `/root/StealthPass`, **verifies it against the checksum published with the
 release**, installs the binary, and opens the menu when it finishes.
 
 Reopen the menu any time with:
@@ -18,8 +18,8 @@ Reopen the menu any time with:
 sudo backpack
 ```
 
-Everything lands in a tidy layout — the release bundle in `/root/BackPack`,
-backups in `/root/BackPack/backups`, tunnel configs in `/etc/backpack`. See
+Everything lands in a tidy layout — the release bundle in `/root/StealthPass`,
+backups in `/root/StealthPass/backups`, tunnel configs in `/etc/backpack`. See
 [server layout](server-layout.md).
 
 > **Building from source** still works as a fallback: clone the repo and run
@@ -36,7 +36,7 @@ install it there. Nothing is fetched from the VPS.
 
 ![Offline install](../img/offline-install.gif)
 
-From the [releases page](https://github.com/AminMGMT/BackPack/releases/latest),
+From the [releases page](https://github.com/AminMGMT/StealthPass/releases/latest),
 download the archive for the server's architecture — run `uname -m` on it:
 `x86_64` → `backpack_linux_amd64.tar.gz`, `aarch64` → `backpack_linux_arm64.tar.gz`.
 
@@ -59,9 +59,9 @@ Upload the archive to the server, then as root:
 ```bash
 sha256sum backpack_linux_amd64.tar.gz        # compare against SHA256SUMS
 tar xzf backpack_linux_amd64.tar.gz
-mkdir -p /etc/backpack /root/BackPack/backups
+mkdir -p /etc/backpack /root/StealthPass/backups
 install -m 0755 backpack /usr/local/bin/backpack
-echo /root/BackPack > /etc/backpack/install_path
+echo /root/StealthPass > /etc/backpack/install_path
 sudo backpack
 ```
 

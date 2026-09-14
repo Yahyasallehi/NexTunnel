@@ -5,11 +5,11 @@ import (
 	"net"
 	"strings"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/optimize"
-	"github.com/backpack/backpack/internal/tui"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/optimize"
+	"github.com/stealthpass/stealthpass/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // transportEntry is one selectable transport. An empty value marks an entry
@@ -830,7 +830,7 @@ func SetupClient() {
 	s.Name = uniqueName(tui.PromptDefault("Tunnel name", defaultName))
 
 	tui.Info("Enter the SAME token you configured on the server.")
-	s.Token = tui.PromptDefault("Security token", "backpack")
+	s.Token = tui.PromptDefault("Security token", "stealthpass")
 
 	if isWS(transport) {
 		tui.Info("Optional edge IP: connect to a CDN edge (e.g. Cloudflare) instead of")

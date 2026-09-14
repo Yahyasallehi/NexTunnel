@@ -4,7 +4,7 @@ import (
 	"net"
 	"sync"
 
-	"github.com/backpack/backpack/internal/snispoof"
+	"github.com/stealthpass/stealthpass/internal/snispoof"
 )
 
 // The SNI-spoofing carrier.

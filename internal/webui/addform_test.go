@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // The setup form against the structures it posts into.

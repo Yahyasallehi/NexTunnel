@@ -65,7 +65,7 @@ func Rule() {
 	fmt.Println(Gray + "═══════════════════════════════════════════════════════" + Reset)
 }
 
-// Logo prints the backpack banner and version.
+// Logo prints the stealthpass banner and version.
 func Logo(version string) {
 	fmt.Print(Red)
 	fmt.Println(`

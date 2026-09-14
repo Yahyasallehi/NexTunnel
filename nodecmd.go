@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/backpack/backpack/internal/node"
+	"github.com/stealthpass/stealthpass/internal/node"
 )
 
-// `backpack node ...` — the managed side of the panel-to-server channel.
+// `stealthpass node ...` — the managed side of the panel-to-server channel.
 //
 // There is almost nothing here, and that is the change.
 //
@@ -25,11 +25,11 @@ import (
 // far side needs no state at all, and what is left is the one command the panel
 // runs there.
 
-const nodeUsage = `backpack node — the panel-managed side of this server
+const nodeUsage = `stealthpass node — the panel-managed side of this server
 
-  backpack node exec <request>
+  stealthpass node exec <request>
         Perform one operation and print the answer. Both are JSON, base64
-        encoded. This is what a Backpack panel runs over SSH; there is no
+        encoded. This is what a StealthPass panel runs over SSH; there is no
         reason to type it.
 
 Nothing needs to be set up here. A panel manages this server by logging in

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/tui"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // stateLabel returns a themed running/stopped label for a service.

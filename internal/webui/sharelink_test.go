@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // The setup link is gone from the panel, and this is what it leaves behind.

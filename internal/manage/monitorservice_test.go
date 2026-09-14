@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // TestMonitorUnitContents checks the generated unit, because a unit file that

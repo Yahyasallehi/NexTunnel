@@ -1,15 +1,238 @@
 <div dir="rtl">
 
-<p align="center"><img src="img/cover.png" alt="Backpack" width="100%"></p>
+<p align="center"><img src="img/cover.png" alt="StealthPass" width="100%"></p>
 
-# بک‌پک 🎒
+# StealthPass v2.0.0 🚀
 
 <p align="center">
-  <a href="go.mod"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/AminMGMT/BackPack?logo=go&label=Go"></a>
-  <a href="https://github.com/AminMGMT/BackPack/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/AminMGMT/BackPack?logo=github&label=release&color=blue"></a>
-  <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/AminMGMT/BackPack?color=green"></a>
-  <a href="https://github.com/AminMGMT/BackPack/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/AminMGMT/BackPack?style=flat&logo=github&color=yellow"></a>
-  <a href="https://github.com/AminMGMT/BackPack/releases"><img alt="Total downloads across all releases" src="https://img.shields.io/github/downloads/AminMGMT/BackPack/total?logo=github&label=total%20downloads&color=orange"></a>
+  <a href="go.mod"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/StealthPassTeam/StealthPass?logo=go&label=Go"></a>
+  <a href="https://github.com/StealthPassTeam/StealthPass/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/StealthPassTeam/StealthPass?logo=github&label=release&color=orange"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/StealthPassTeam/StealthPass?color=orange"></a>
+  <a href="https://github.com/StealthPassTeam/StealthPass/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/StealthPassTeam/StealthPass?style=flat&logo=github&color=orange"></a>
+</p>
+
+**StealthPass** یک موتور تانل سطح enterprise نوشته شده با **Go** برای سرورهای **Ubuntu/Linux** است. یک باینری. **۱۵ پروتکل تانل**. بهینه‌سازی برای بازی. آماده برای فرار از DPI.
+
+<p align="center">
+  <b><a href="README.md">🇬🇧 English</a></b> ·
+  <b><a href="#شروع-سریع">⚡ شروع سریع</a></b> ·
+  <b><a href="#ویژگی‌ها">✨ ویژگی‌ها</a></b>
+</p>
+
+---
+
+## ✨ ویژگی‌ها
+
+✅ **۱۵ پروتکل تانل** - همه در یک باینری  
+✅ **بهینه‌سازی بازی** - Trojan/gRPC/UDP با failover خودکار  
+✅ **فرار از DPI** - Reality TLS، IP Spoofing، ICMP  
+✅ **ابزار CLI** - `stealthpass-tunnel` برای تنظیم یک‌دستوری  
+✅ **۳ پریست** - Gaming/General/Stealth  
+✅ **BBR Optimization** - کنترل ازدحام Google  
+✅ **Zero-Copy** - بای‌پس kernel  
+✅ **FEC** - اصلاح خطا برای مسیرهای بدحالت  
+✅ **Health Failover** - تبدیل خودکار exit چندتایی  
+✅ **Dashboard وب** - نمایش real-time
+
+---
+
+## 🚀 نصب
+
+### روش توصیه‌شده
+
+```bash
+# Ubuntu 20.04+، به عنوان root
+curl -fsSL https://github.com/StealthPassTeam/StealthPass/releases/download/v2.0.0/install.sh | bash
+
+# یا دستی
+wget https://github.com/StealthPassTeam/StealthPass/releases/download/v2.0.0/stealthpass_linux_amd64.tar.gz
+tar xzf stealthpass_linux_amd64.tar.gz
+sudo mv stealthpass stealthpass-tunnel /usr/local/bin/
+sudo chmod +x /usr/local/bin/stealthpass*
+```
+
+### از کد منبع
+
+```bash
+git clone https://github.com/StealthPassTeam/StealthPass.git
+cd StealthPass
+GOOS=linux GOARCH=amd64 go build -o stealthpass .
+GOOS=linux GOARCH=amd64 go build -o stealthpass-tunnel ./cmd/tunnel-setup/
+sudo mv stealthpass stealthpass-tunnel /usr/local/bin/
+```
+
+---
+
+## ⚡ شروع سریع
+
+### 1️⃣ حالت بازی (Trojan - تأخیر بسیار کم)
+
+```bash
+# ایجاد تنظیمات
+stealthpass-tunnel gaming --protocol trojan --dry-run
+
+# ذخیره و اجرا
+stealthpass-tunnel gaming --protocol trojan --output /etc/stealthpass/gaming.toml
+sudo stealthpass -c /etc/stealthpass/gaming.toml
+```
+
+**نتیجه:** تأخیر < 50ms برای Dota 2، CS2، Valorant
+
+### 2️⃣ حالت عمومی (VLESS - متوازن)
+
+```bash
+stealthpass-tunnel general --protocol vless --dry-run
+stealthpass-tunnel general --protocol vless --output /etc/stealthpass/general.toml
+sudo stealthpass -c /etc/stealthpass/general.toml
+```
+
+### 3️⃣ حالت Stealth (Reality TLS - فرار از DPI)
+
+```bash
+stealthpass-tunnel stealth --protocol reality --dry-run
+stealthpass-tunnel stealth --protocol reality --output /etc/stealthpass/stealth.toml
+sudo stealthpass -c /etc/stealthpass/stealth.toml
+```
+
+---
+
+## 🛠️ استفاده از CLI Tool
+
+```bash
+# پریست‌های بازی
+stealthpass-tunnel gaming --protocol trojan        # تأخیر بسیار کم
+stealthpass-tunnel gaming --protocol grpc          # HTTP/2
+stealthpass-tunnel gaming --protocol udp           # سرعت خام
+
+# پریست‌های عمومی
+stealthpass-tunnel general --protocol vless        # Xray compatible
+stealthpass-tunnel general --protocol quic         # رمزگذاری مدرن
+stealthpass-tunnel general --protocol ws           # WebSocket
+
+# پریست‌های Stealth
+stealthpass-tunnel stealth --protocol reality      # Chrome fingerprint
+stealthpass-tunnel stealth --protocol stealth      # رمزگذاری Noise
+stealthpass-tunnel stealth --protocol xdi          # ICMP tunneling
+
+# مدیریت IP Pool
+stealthpass-tunnel ip-pool add 10.0.0.1
+stealthpass-tunnel ip-pool list
+stealthpass-tunnel ip-pool rotate
+
+# تایید تنظیمات
+stealthpass-tunnel validate /etc/stealthpass/tunnel.toml
+
+# Dry-run
+stealthpass-tunnel gaming --dry-run
+```
+
+---
+
+## 📊 مقایسه پروتکل‌ها
+
+| پروتکل | تأخیر | سرعت | DPI | استفاده |
+|--------|-------|------|-----|---------|
+| **Trojan** | ⭐ بسیار کم | ⭐⭐⭐⭐ | ✅ | بازی |
+| **gRPC** | ⭐⭐ کم | ⭐⭐⭐ | ✅ | بازی/عمومی |
+| **UDP** | ⭐ بسیار کم | ⭐⭐⭐⭐⭐ | ❌ | بازی |
+| **VLESS** | ⭐⭐ کم | ⭐⭐⭐ | ✅ | عمومی |
+| **QUIC** | ⭐⭐ کم | ⭐⭐⭐⭐ | ✅ | عمومی |
+| **TCP** | ⭐⭐⭐ متوسط | ⭐⭐⭐ | ✅ | عمومی |
+| **WebSocket** | ⭐⭐⭐ متوسط | ⭐⭐⭐ | ✅ | عمومی |
+| **Reality** | ⭐⭐ کم | ⭐⭐⭐ | ✅⭐ | Stealth |
+| **STEALTH** | ⭐⭐ کم | ⭐⭐⭐ | ✅⭐ | Stealth |
+| **XDI (ICMP)** | ⭐ بسیار کم | ⭐⭐ | ✅⭐ | Stealth |
+
+---
+
+## 🎮 بهینه‌سازی برای بازی
+
+```toml
+[client]
+transport = "trojan"
+connection_pool = 24          # اتصالات موازی
+keepalive_period = 30         # کم تأخیر
+nodelay = true                # TCP_NODELAY
+aggressive_pool = true        # پیش‌تخصیص
+health_failover = true        # تبدیل خودکار
+
+[server]
+preset = "best-performance"
+bandwidth_mbps = 0            # بی‌محدود
+max_connections = 0           # بی‌محدود
+```
+
+---
+
+## 🛡️ فرار از DPI
+
+### Reality TLS (غیرقابل تشخیص)
+
+```bash
+stealthpass-tunnel stealth --protocol reality
+```
+
+### STEALTH (رمزگذاری Noise)
+
+```bash
+stealthpass-tunnel stealth --protocol stealth
+```
+
+### XDI (ICMP Tunneling)
+
+```bash
+stealthpass-tunnel stealth --protocol xdi
+```
+
+---
+
+## 📋 نیازمندی‌های سیستم
+
+- **OS:** Ubuntu 20.04+ (فقط Linux)
+- **معماری:** x86-64، ARM64، RISC-V
+- **دسترسی:** root (برای XDI، PCK)
+- **درگاه‌ها:** قابل تنظیم (پیش‌فرض 443، 80، 8080)
+
+---
+
+## 🔐 امنیت
+
+- **احراز هویت توکن** (16+ کاراکتر)
+- **Noise Protocol** - ظاهر تصادفی
+- **Reality TLS** - Chrome fingerprint
+- **ChaCha20-Poly1305** - رمزگذاری
+- **PROXY Protocol v2** - IP واقعی کاربر
+- **بدون فینگرپرینت** - Stealth mode
+
+---
+
+## 📞 پشتیبانی
+
+- **GitHub Issues:** [گزارش باگ](https://github.com/StealthPassTeam/StealthPass/issues)
+- **تلگرام:** [@StealthPassChat](https://t.me/StealthPassChat)
+
+---
+
+## 📄 مجوز
+
+**GNU Affero General Public License v3.0 (AGPL-3.0)**  
+کپی‌رایت © 2026 تیم StealthPass
+
+---
+
+**StealthPass v2.0.0** — موتور تانل سطح enterprise
+
+*ساخته‌شده با Go • برای Ubuntu/Linux • سطح production*
+
+</div>
+
+
+<p align="center">
+  <a href="go.mod"><img alt="Go version" src="https://img.shields.io/github/go-mod/go-version/AminMGMT/StealthPass?logo=go&label=Go"></a>
+  <a href="https://github.com/AminMGMT/StealthPass/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/AminMGMT/StealthPass?logo=github&label=release&color=blue"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/AminMGMT/StealthPass?color=green"></a>
+  <a href="https://github.com/AminMGMT/StealthPass/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/AminMGMT/StealthPass?style=flat&logo=github&color=yellow"></a>
+  <a href="https://github.com/AminMGMT/StealthPass/releases"><img alt="Total downloads across all releases" src="https://img.shields.io/github/downloads/AminMGMT/StealthPass/total?logo=github&label=total%20downloads&color=orange"></a>
 </p>
 
 **بک‌پک** یک هستهٔ تونل با کارایی بالاست که کاملاً با **Go** نوشته شده و برای
@@ -86,7 +309,7 @@ carrier. بعد از بالا آمدن، MTU خودش را اندازه می‌�
 </div>
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/BackPack/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/StealthPass/main/install.sh)
 ```
 
 <div dir="rtl">

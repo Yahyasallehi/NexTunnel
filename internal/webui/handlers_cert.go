@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // The panel's own certificate, from the panel.

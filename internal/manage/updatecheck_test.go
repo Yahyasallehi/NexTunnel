@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // withTempState points the update cache at a temporary file for the duration of

@@ -8,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 	"github.com/xtaci/smux"
 )
 

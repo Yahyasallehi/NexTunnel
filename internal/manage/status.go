@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // StatusLive renders a continuously refreshing status table of all tunnels

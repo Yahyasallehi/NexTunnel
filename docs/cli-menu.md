@@ -187,7 +187,7 @@ forward a tunnel port to `127.0.0.1:<that port>`.
 
 A backup bundles **every tunnel, the web-panel password, Telegram settings, TLS
 certificates and the auto-refresh schedule** into one portable `.tar.gz` under
-`/root/BackPack/backups`.
+`/root/StealthPass/backups`.
 
 | Option | Notes |
 |---|---|

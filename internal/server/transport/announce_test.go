@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 
 	"github.com/sirupsen/logrus"
 )

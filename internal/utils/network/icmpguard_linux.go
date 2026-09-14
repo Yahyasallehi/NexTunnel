@@ -92,7 +92,7 @@ func icmpEchoRule(port uint16) []string {
 		"-p", "icmp",
 		"--icmp-type", "echo-reply",
 		"-m", "u32", "--u32", fmt.Sprintf("0>>22&0x3C@4>>16=%d", port),
-		"-m", "comment", "--comment", fmt.Sprintf("backpack-spoof-icmp-%s", p),
+		"-m", "comment", "--comment", fmt.Sprintf("stealthpass-spoof-icmp-%s", p),
 		"-j", "DROP",
 	}
 }

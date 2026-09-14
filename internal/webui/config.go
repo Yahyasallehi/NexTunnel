@@ -10,8 +10,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // Config is the persisted web-panel configuration.

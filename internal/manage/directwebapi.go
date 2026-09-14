@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/optimize"
-	"github.com/backpack/backpack/internal/tunnel/l3"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/optimize"
+	"github.com/stealthpass/stealthpass/internal/tunnel/l3"
 )
 
 // Creating a direct tunnel from the web panel.

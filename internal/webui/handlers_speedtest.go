@@ -3,8 +3,8 @@ package webui
 import (
 	"net/http"
 
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
 	"strings"
 )
 
@@ -132,7 +132,7 @@ func (s *server) handleSpeedTestRun(w http.ResponseWriter, r *http.Request) {
 				msg += " — this panel does not know which server holds the other end of " +
 					"this tunnel, so it could not start the receiver there. Link it to " +
 					"that server and the panel will do this itself. Until then, start it " +
-					"by hand there: sudo backpack → Manage → Speed Test → Receive"
+					"by hand there: sudo stealthpass → Manage → Speed Test → Receive"
 			}
 		}
 		http.Error(w, msg, http.StatusBadGateway)

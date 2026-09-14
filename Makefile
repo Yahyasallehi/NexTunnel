@@ -1,5 +1,5 @@
-BIN      := backpack
-BIN_PATH := /usr/local/bin/backpack
+BIN      := stealthpass
+BIN_PATH := /usr/local/bin/stealthpass
 LDFLAGS  := -s -w
 
 .PHONY: all build install uninstall clean tidy run vendor release-linux release version
@@ -35,26 +35,26 @@ ARMS   := 5 6 7
 
 release-linux:
 	mkdir -p dist
-	@for a in $(ARCHES); do 	  echo "  building linux/$$a"; 	  CGO_ENABLED=0 GOOS=linux GOARCH=$$a 	    go build -trimpath -ldflags "$(LDFLAGS)" -o dist/backpack-linux-$$a . || exit 1; 	done
-	@for v in $(ARMS); do 	  echo "  building linux/armv$$v"; 	  CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=$$v 	    go build -trimpath -ldflags "$(LDFLAGS) -X github.com/backpack/backpack/internal/app.GOARM=$$v" 	    -o dist/backpack-linux-armv$$v . || exit 1; 	done
+	@for a in $(ARCHES); do 	  echo "  building linux/$$a"; 	  CGO_ENABLED=0 GOOS=linux GOARCH=$$a 	    go build -trimpath -ldflags "$(LDFLAGS)" -o dist/stealthpass-linux-$$a . || exit 1; 	done
+	@for v in $(ARMS); do 	  echo "  building linux/armv$$v"; 	  CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=$$v 	    go build -trimpath -ldflags "$(LDFLAGS) -X github.com/stealthpass/stealthpass/internal/app.GOARM=$$v" 	    -o dist/stealthpass-linux-armv$$v . || exit 1; 	done
 
-# GitHub release assets: backpack_linux_<arch>.tar.gz, each containing a single
-# `backpack` binary. These are what install.sh and the in-app updater download.
+# GitHub release assets: stealthpass_linux_<arch>.tar.gz, each containing a single
+# `stealthpass` binary. These are what install.sh and the in-app updater download.
 release: version release-linux
 	mkdir -p release
-	@for a in $(ARCHES) $(addprefix armv,$(ARMS)); do 	  cp dist/backpack-linux-$$a dist/backpack && 	  tar -czf release/backpack_linux_$$a.tar.gz -C dist backpack && 	  rm dist/backpack || exit 1; 	done
+	@for a in $(ARCHES) $(addprefix armv,$(ARMS)); do 	  cp dist/stealthpass-linux-$$a dist/stealthpass && 	  tar -czf release/stealthpass_linux_$$a.tar.gz -C dist stealthpass && 	  rm dist/stealthpass || exit 1; 	done
 	@# A checksum file published beside the assets is what lets the installer and
 	@# the updater prove that a mirror handed them the real binary. Users on
 	@# restricted networks fetch these through third-party proxies, so this is
 	@# the only integrity check they get.
-	cd release && (sha256sum backpack_linux_*.tar.gz > SHA256SUMS 2>/dev/null || shasum -a 256 backpack_linux_*.tar.gz > SHA256SUMS)
+	cd release && (sha256sum stealthpass_linux_*.tar.gz > SHA256SUMS 2>/dev/null || shasum -a 256 stealthpass_linux_*.tar.gz > SHA256SUMS)
 	@echo "Release assets ready in ./release"
 	@cat release/SHA256SUMS
 
 install: build
 	install -m 0755 $(BIN) $(BIN_PATH)
-	mkdir -p /etc/backpack
-	@echo "Installed. Run: backpack"
+	mkdir -p /etc/stealthpass
+	@echo "Installed. Run: stealthpass"
 
 uninstall:
 	rm -f $(BIN_PATH)

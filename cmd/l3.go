@@ -5,10 +5,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/tunnel/l3"
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/tunnel/l3"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // The layer-3 tunnel's entry point.

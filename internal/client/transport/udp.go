@@ -8,10 +8,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/network"
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/web"
 	"github.com/sirupsen/logrus"
 )
 

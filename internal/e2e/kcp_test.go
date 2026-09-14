@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/server"
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/server"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // The kcp re-adopt path had the fix but no coverage, while udp and quic both

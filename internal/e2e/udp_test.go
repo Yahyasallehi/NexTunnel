@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/client"
-	"github.com/backpack/backpack/internal/server"
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/client"
+	"github.com/stealthpass/stealthpass/internal/server"
+	"github.com/stealthpass/stealthpass/internal/utils"
 )
 
 // The raw UDP transport was the one protocol with no end-to-end coverage: the

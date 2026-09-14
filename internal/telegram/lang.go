@@ -40,7 +40,7 @@ var fa = map[string]string{
 
 	// Release announcement
 	"⬆️ Backpack %s has been released (you are on %s).":                                            "⬆️ نسخه %s بک‌پک منتشر شد (نسخه فعلی شما %s است).",
-	"Update from the CLI: sudo backpack → Update.":                                                 "برای به‌روزرسانی در ترمینال: sudo backpack ← Update.",
+	"Update from the CLI: sudo stealthpass → Update.":                                                 "برای به‌روزرسانی در ترمینال: sudo stealthpass ← Update.",
 	"It saves a restore point first and rolls back by itself if the tunnel does not come back up.": "ابتدا یک نقطه بازیابی می‌سازد و اگر تونل بالا نیامد، خودش برمی‌گردد.",
 
 	// Status report

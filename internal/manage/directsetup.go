@@ -7,11 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/optimize"
-	"github.com/backpack/backpack/internal/snispoof"
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/optimize"
+	"github.com/stealthpass/stealthpass/internal/snispoof"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // The direct tunnel wizard.

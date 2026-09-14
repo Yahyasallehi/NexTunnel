@@ -184,13 +184,13 @@ func TestArchivedInstallPathIsUsedWhenThereIsNoLocalOne(t *testing.T) {
 // happens or it does not.
 func TestCommitSwapsTheTreeInOneStep(t *testing.T) {
 	parent := t.TempDir()
-	live := filepath.Join(parent, "backpack")
+	live := filepath.Join(parent, "stealthpass")
 	if err := os.Mkdir(live, 0755); err != nil {
 		t.Fatal(err)
 	}
 	writeAt(t, live, "old.toml", "the previous configuration", 0600)
 
-	stage, err := os.MkdirTemp(parent, ".backpack-restore-*")
+	stage, err := os.MkdirTemp(parent, ".stealthpass-restore-*")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -326,7 +326,7 @@ func archiveOf(t *testing.T, entries ...entry) []byte {
 	return buf.Bytes()
 }
 
-// liveConfigDir is a stand-in for /etc/backpack with something already in it.
+// liveConfigDir is a stand-in for /etc/stealthpass with something already in it.
 func liveConfigDir(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()

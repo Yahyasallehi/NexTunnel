@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/backpack/backpack/internal/tunnel/limits"
-	"github.com/backpack/backpack/internal/tunnel/portmap"
+	"github.com/stealthpass/stealthpass/internal/tunnel/limits"
+	"github.com/stealthpass/stealthpass/internal/tunnel/portmap"
 	"github.com/sirupsen/logrus"
 )
 

@@ -6,12 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/geo"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/sysstat"
-	"github.com/backpack/backpack/internal/tunhist"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/geo"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/tunhist"
 )
 
 // Driving the tunnels from the chat.

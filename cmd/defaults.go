@@ -7,15 +7,15 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 
 	"github.com/sirupsen/logrus"
 )
 
 const ( // Default values
-	defaultToken          = "backpack"
+	defaultToken          = "stealthpass"
 	defaultChannelSize    = 2048
 	defaultRetryInterval  = 3 // only for client
 	defaultConnectionPool = 8
@@ -37,7 +37,7 @@ const ( // Default values
 	defaultMaxFrameSize     = 32768   // 32KB
 	defaultMaxReceiveBuffer = 4194304 // 4MB
 	defaultMaxStreamBuffer  = 65536   // 64KB
-	defaultSnifferLog       = "backpack.json"
+	defaultSnifferLog       = "stealthpass.json"
 	defaultMuxCon           = 8
 )
 
@@ -226,7 +226,7 @@ func checkSpoof(cfg *config.Config) {
 		logger.Fatalf("transport = \"spoof\" is no longer a reverse tunnel: IP spoofing is a " +
 			"direct-tunnel carrier, and a reverse tunnel over it could never carry traffic " +
 			"(every one of its pooled sessions arrives at the same address, so each closed the " +
-			"one before it). Build it again as a direct tunnel — `sudo backpack` → Setup Iran / " +
+			"one before it). Build it again as a direct tunnel — `sudo stealthpass` → Setup Iran / " +
 			"Setup Kharej → Direct, and choose Spoof as the carrier — which forwards the same " +
 			"ports over the same forged-source packets. See docs/ip-spoofing.md.")
 	}

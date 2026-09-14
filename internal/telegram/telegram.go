@@ -15,15 +15,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/geo"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/schedule"
-	"github.com/backpack/backpack/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/geo"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/schedule"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
 )
 
-const cronMarker = "backpack-telegram"
+const cronMarker = "stealthpass-telegram"
 
 // Config is the persisted Telegram bot configuration.
 type Config struct {
@@ -695,7 +695,7 @@ func sendBackup(c Config) error {
 		return fmt.Errorf("could not build the backup: %w", err)
 	}
 
-	name := fmt.Sprintf("backpack-backup-%s.tar.gz", time.Now().Format("2006-01-02-1504"))
+	name := fmt.Sprintf("stealthpass-backup-%s.tar.gz", time.Now().Format("2006-01-02-1504"))
 	caption := "🔐 Full backup — every tunnel and token, the panel password, " +
 		"Telegram settings and certificates.\n\nKeep it private: anyone with this " +
 		"file can connect to your tunnels."

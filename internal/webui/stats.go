@@ -8,15 +8,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/geo"
-	"github.com/backpack/backpack/internal/localproxy"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/node"
-	"github.com/backpack/backpack/internal/sysstat"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/geo"
+	"github.com/stealthpass/stealthpass/internal/localproxy"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/node"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 	psnet "github.com/shirou/gopsutil/v4/net"
 )
 
@@ -82,7 +82,7 @@ type SystemStats struct {
 	TunnelsTotal   int `json:"tunnelsTotal"`
 	TunnelsRunning int `json:"tunnelsRunning"`
 
-	// MonitorRunning reports the backpack-monitor service — the watchdog, the
+	// MonitorRunning reports the stealthpass-monitor service — the watchdog, the
 	// Telegram bot and the alerts live there, not in this panel. When it is
 	// down, dropped tunnels are not restarted and no alert fires, and nothing
 	// else visibly breaks — which is exactly why the panel must say so.

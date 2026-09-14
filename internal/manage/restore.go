@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Restoring is all-or-nothing.

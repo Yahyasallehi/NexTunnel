@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // --- login rate limiting -----------------------------------------------------

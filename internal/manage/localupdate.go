@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Updating from a release the operator downloaded themselves.
@@ -18,7 +18,7 @@ import (
 // help and do not always work. What always works is a browser somewhere else,
 // a file, and scp.
 //
-// So: put backpack_linux_<arch>.tar.gz in /root, choose this, and everything
+// So: put stealthpass_linux_<arch>.tar.gz in /root, choose this, and everything
 // after the download is exactly what the online update does — the same
 // verification when a checksum is there, the same snapshot before anything is
 // touched, the same health check afterwards, and the same automatic rollback
@@ -94,7 +94,7 @@ func LocalUpdateSearchedIn() []string { return localUpdateDirs() }
 // the flag, or a file that is not a release at all — returns "", and the caller
 // says so rather than inventing a number.
 func versionInArchive(archive string) string {
-	tmp, err := os.CreateTemp("", "backpack-check-*")
+	tmp, err := os.CreateTemp("", "stealthpass-check-*")
 	if err != nil {
 		return ""
 	}

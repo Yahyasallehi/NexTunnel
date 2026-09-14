@@ -43,9 +43,9 @@ var sysctls = [][2]string{
 	{"net.ipv4.ip_forward", "1"},
 }
 
-const sysctlFile = "/etc/sysctl.d/99-backpack.conf"
+const sysctlFile = "/etc/sysctl.d/99-stealthpass.conf"
 
-const limitsFile = "/etc/security/limits.d/99-backpack.conf"
+const limitsFile = "/etc/security/limits.d/99-stealthpass.conf"
 
 const limitsContent = `# Raised by backpack for high connection counts
 * soft nofile 1048576
@@ -68,7 +68,7 @@ func Apply(logf func(string)) {
 
 	// Persist sysctl settings.
 	var b strings.Builder
-	b.WriteString("# Managed by backpack — network optimizations\n")
+	b.WriteString("# Managed by stealthpass — network optimizations\n")
 	for _, kv := range sysctls {
 		fmt.Fprintf(&b, "%s = %s\n", kv[0], kv[1])
 	}

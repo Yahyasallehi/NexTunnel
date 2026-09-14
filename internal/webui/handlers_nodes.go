@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
 )
 
 // Managed servers.

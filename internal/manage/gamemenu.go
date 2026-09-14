@@ -3,7 +3,7 @@ package manage
 import (
 	"fmt"
 
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // GameLatencyTest estimates the in-game ping a player would feel through this

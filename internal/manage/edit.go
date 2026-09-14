@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // loadServerSpec reconstructs a server tunnel's spec from its config file so it

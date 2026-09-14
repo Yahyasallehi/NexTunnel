@@ -5,8 +5,8 @@ from **Manage → File Locations** in the CLI.
 
 | Path | What |
 |------|------|
-| `/root/BackPack` | The release bundle and downloaded archives. |
-| `/root/BackPack/backups` | [Backup](backup-restore.md) `.tar.gz` files. |
+| `/root/StealthPass` | The release bundle and downloaded archives. |
+| `/root/StealthPass/backups` | [Backup](backup-restore.md) `.tar.gz` files. |
 | `/etc/backpack` | Tunnel configs (one `.toml` per tunnel) and runtime state. |
 | `/usr/local/bin/backpack` | The binary itself. |
 | `backpack-<name>.service` | A systemd unit per tunnel. |
@@ -24,8 +24,8 @@ the uninstaller reads to know what to remove.
 همه‌چیز در یک ساختار مرتب و قابل‌پیش‌بینی است. همین را هر وقت خواستی از
 `Manage → File Locations` در CLI هم می‌بینی.
 
-`‎/root/BackPack` بستهٔ ریلیز و آرشیوهای دانلودشده ·
-`‎/root/BackPack/backups` فایل‌های [پشتیبان](backup-restore.md) ·
+`‎/root/StealthPass` بستهٔ ریلیز و آرشیوهای دانلودشده ·
+`‎/root/StealthPass/backups` فایل‌های [پشتیبان](backup-restore.md) ·
 `‎/etc/backpack` کانفیگ تونل‌ها (برای هر تونل یک فایل `.toml`) و وضعیت اجرا ·
 `‎/usr/local/bin/backpack` خودِ باینری ·
 `backpack-<name>.service` یک یونیت systemd به‌ازای هر تونل ·

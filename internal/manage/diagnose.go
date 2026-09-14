@@ -12,9 +12,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // CheckLevel is how a diagnostic turned out.
@@ -88,7 +88,7 @@ func systemChecks() []Check {
 		out = append(out, Check{Group: g, Name: "Root privileges", Level: CheckOK, Detail: "running as root"})
 	} else {
 		out = append(out, Check{Group: g, Name: "Root privileges", Level: CheckFail,
-			Detail: "not root", Fix: "run: sudo backpack"})
+			Detail: "not root", Fix: "run: sudo stealthpass"})
 	}
 
 	// systemd must be usable, otherwise nothing survives a reboot.
@@ -173,7 +173,7 @@ func monitorChecks() []Check {
 	if !fileExists(app.ServiceDir + "/" + app.MonitorService) {
 		return append(out, Check{Group: g, Name: "Service", Level: CheckWarn,
 			Detail: "not installed — no watchdog and no alerts",
-			Fix:    "restart the CLI (sudo backpack); it installs the service on launch"})
+			Fix:    "restart the CLI (sudo stealthpass); it installs the service on launch"})
 	}
 	if MonitorRunning() {
 		return append(out, Check{Group: g, Name: "Service", Level: CheckOK,
@@ -392,7 +392,7 @@ func tunnelChecksFor(t Tunnel, pairs [][2]string) []Check {
 	case spec.Token == "":
 		out = append(out, Check{Group: g, Name: "Token", Level: CheckFail,
 			Detail: "empty", Fix: "recreate the tunnel with a generated token"})
-	case len(spec.Token) < 16 || spec.Token == "backpack":
+	case len(spec.Token) < 16 || spec.Token == "stealthpass":
 		out = append(out, Check{Group: g, Name: "Token", Level: CheckWarn,
 			Detail: "weak or default", Fix: "recreate the tunnel to get a 64-char token"})
 	default:

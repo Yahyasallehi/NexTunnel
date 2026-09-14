@@ -2,7 +2,7 @@
 
 Everything in one portable `.tar.gz`: every tunnel and token, the web-panel
 password, Telegram settings, TLS certificates, and the auto-refresh schedule.
-Backups live in `/root/BackPack/backups`.
+Backups live in `/root/StealthPass/backups`.
 
 ## Restore
 
@@ -25,7 +25,7 @@ from where the backup left off rather than resetting to zero.
 
 همه‌چیز در یک فایل `.tar.gz` قابل‌حمل: تمام تونل‌ها و توکن‌ها، رمز پنل وب،
 تنظیمات تلگرام، گواهی‌های TLS و زمان‌بندی ری‌فرش خودکار. فایل‌ها در
-`/root/BackPack/backups` ذخیره می‌شوند.
+`/root/StealthPass/backups` ذخیره می‌شوند.
 
 **بازگردانی** همهٔ تونل‌ها را دوباره ثبت و استارت می‌کند و آمار ترافیک از همان
 جایی که بوده ادامه پیدا می‌کند، نه از صفر.

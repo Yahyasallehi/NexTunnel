@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Runner is how the panel reaches a managed server.
@@ -69,7 +69,7 @@ func (e ErrOffline) Unwrap() error { return e.Err }
 // ErrNeedsInstall means the far server cannot answer this panel because the
 // Backpack on it is missing or too old. Both are fixed the same way, by
 // installing over the same SSH connection, so both carry this.
-var ErrNeedsInstall = errors.New("backpack must be installed on that server")
+var ErrNeedsInstall = errors.New("stealthpass must be installed on that server")
 
 // SSHRunner drives managed servers over SSH.
 type SSHRunner struct {
@@ -175,7 +175,7 @@ func (r *SSHRunner) exec(ctx context.Context, name string, t SSHTarget, req Requ
 		}
 		stdout, err = runOver(c, cmd, nil)
 		if err != nil {
-			return Response{}, backpackMissing(err)
+			return Response{}, needsInstallError(err)
 		}
 	}
 
@@ -204,7 +204,7 @@ func lastLine(s string) string {
 	return s
 }
 
-// backpackMissing turns "this server cannot answer the panel" into the thing
+// needsInstallError turns "this server cannot answer the panel" into the thing
 // the operator has to do about it, which is the same thing in both of the ways
 // it happens.
 //
@@ -221,7 +221,7 @@ func lastLine(s string) string {
 // this panel can talk to — and both are answered the same way, by installing,
 // which is also how a server is upgraded. So both are named the same, and the
 // add handler's install path covers both.
-func backpackMissing(err error) error {
+func needsInstallError(err error) error {
 	msg := err.Error()
 	switch {
 	case strings.Contains(msg, "not found"), strings.Contains(msg, "No such file"):
@@ -257,7 +257,7 @@ func outdatedBackpack(msg string) bool {
 	}
 	// Older still, or built differently: the usage arrives without the line
 	// above it. Two markers rather than one, so an unrelated message that
-	// happens to contain the word "backpack" is not read as this.
+	// happens to contain the word "stealthpass" is not read as this.
 	return strings.Contains(msg, "backpack node") &&
 		(strings.Contains(msg, "node setup") || strings.Contains(msg, "--setup-key"))
 }

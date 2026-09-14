@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // The Speed Test, without a terminal in front of it.

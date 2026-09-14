@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // The monitor service.

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/socks"
+	"github.com/stealthpass/stealthpass/internal/socks"
 )
 
 // startEcho is a TCP service that echoes what it receives — the destination

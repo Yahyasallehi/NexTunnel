@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils"
 )
 
 // Three different faults used to reach the operator as one symptom.

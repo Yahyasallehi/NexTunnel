@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 )
 
 // handleChannel reads (GET) or switches (POST) the release channel the

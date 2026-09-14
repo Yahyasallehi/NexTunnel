@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/sysstat"
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // TunnelMetrics shows what each tunnel has actually carried.

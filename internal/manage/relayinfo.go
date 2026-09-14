@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // TunnelToken returns the shared secret token of a tunnel by name.

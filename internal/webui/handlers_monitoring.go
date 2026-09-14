@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/alerthist"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
-	"github.com/backpack/backpack/internal/tunhist"
+	"github.com/stealthpass/stealthpass/internal/alerthist"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
+	"github.com/stealthpass/stealthpass/internal/tunhist"
 )
 
 // The read-only monitoring endpoints: health checks, alert history and the
@@ -49,7 +49,7 @@ func healthLevel(l manage.CheckLevel) string {
 
 // handleAlerts returns what the monitor's alert watcher has recorded: the
 // conditions active right now and the recent messages. The panel only reads;
-// the watcher in backpack-monitor writes.
+// the watcher in stealthpass-monitor writes.
 func (s *server) handleAlerts(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, alerthist.Load())
 }

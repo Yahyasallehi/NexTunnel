@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/debugserver"
-	"github.com/backpack/backpack/internal/server/transport"
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/handlers"
-	"github.com/backpack/backpack/internal/utils/network"
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/debugserver"
+	"github.com/stealthpass/stealthpass/internal/server/transport"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/handlers"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/web"
 
 	"github.com/sirupsen/logrus"
 )
@@ -19,7 +19,7 @@ import (
 // are kept. It must survive restarts: re-issuing works, but doing it repeatedly
 // runs into Let's Encrypt's rate limits, and then the tunnel has no
 // certificate at all until the limit resets.
-const acmeCacheDir = "/etc/backpack/acme"
+const acmeCacheDir = "/etc/stealthpass/acme"
 
 type Server struct {
 	config *config.ServerConfig
@@ -270,6 +270,30 @@ func (s *Server) Start() {
 
 		udpServer := transport.NewUDPServer(s.ctx, udpConfig, s.logger)
 		go udpServer.Start()
+
+	case config.VLESS, config.TROJAN, config.GRPC, config.GREALITY:
+		// VLESS, Trojan, gRPC, Reality: All use TCP server as base
+		tcpConfig := &transport.TcpConfig{
+			BindAddr:       s.config.BindAddr,
+			Heartbeat:      time.Duration(s.config.Heartbeat) * time.Second,
+			Token:          s.config.Token,
+			ChannelSize:    s.config.ChannelSize,
+			Ports:          s.config.Ports,
+			Sniffer:        s.config.Sniffer,
+			WebPort:        s.config.WebPort,
+			SnifferLog:     s.config.SnifferLog,
+			AcceptUDP:      s.config.ForwardsUDP(),
+			MSS:            s.config.MSS,
+			SO_RCVBUF:      s.config.SO_RCVBUF,
+			SO_SNDBUF:      s.config.SO_SNDBUF,
+			ProxyProtocol:  s.config.ProxyProtocol,
+			MaxConnections: s.config.MaxConnections,
+			BandwidthMbps:  s.config.BandwidthMbps,
+			Stealth:        s.config.Transport == config.GREALITY,
+		}
+
+		tcpServer := transport.NewTCPServer(s.ctx, tcpConfig, s.logger)
+		go tcpServer.Start()
 
 	default:
 		s.logger.Fatal("invalid transport type: ", s.config.Transport)

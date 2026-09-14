@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/testport"
+	"github.com/stealthpass/stealthpass/internal/testport"
 	"github.com/sirupsen/logrus"
 )
 

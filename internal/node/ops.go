@@ -12,10 +12,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/geo"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/geo"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
 )
 
 // ApplyRequest is the complete desired state of one tunnel.

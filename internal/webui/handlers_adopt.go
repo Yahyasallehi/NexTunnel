@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
 )
 
 // Linking a tunnel that already exists to the server that holds its other end.

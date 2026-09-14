@@ -198,7 +198,7 @@ func (s KCPSettings) effectiveMTU() int {
 // tunnel unreadable to anyone who does not already know the token. The key is
 // stretched with PBKDF2 so that even a short token yields a usable AES key.
 func kcpCrypt(token string) (kcp.BlockCrypt, error) {
-	key := pbkdf2.Key([]byte(token), []byte("backpack-kcp-v1"), 100_000, 32, sha256.New)
+	key := pbkdf2.Key([]byte(token), []byte("stealthpass-kcp-v1"), 100_000, 32, sha256.New)
 	block, err := kcp.NewAESBlockCrypt(key)
 	if err != nil {
 		return nil, fmt.Errorf("kcp: failed to derive cipher: %w", err)

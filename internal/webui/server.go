@@ -16,10 +16,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 //go:embed assets/login.html
@@ -190,7 +190,7 @@ func Serve() error {
 	srv := &server{sessions: newSessionStore(), nodes: &fleet{}}
 
 	// The SOCKS5 relay, the watchdog, the Telegram bot and the alerts all
-	// deliberately run elsewhere — in the backpack-monitor service. See
+	// deliberately run elsewhere — in the stealthpass-monitor service. See
 	// internal/monitor for why.
 
 	// The panel shows live stats, tunnel state and logs, and — through the

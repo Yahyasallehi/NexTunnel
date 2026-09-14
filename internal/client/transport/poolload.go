@@ -3,7 +3,7 @@ package transport
 import (
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/metrics"
 )
 
 // Scaling the connection pool on throughput, not only on churn.

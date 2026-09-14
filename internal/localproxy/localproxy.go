@@ -15,9 +15,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/socks"
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/socks"
+	"github.com/stealthpass/stealthpass/internal/utils"
 )
 
 // Kind is which proxy protocol to serve on the port.

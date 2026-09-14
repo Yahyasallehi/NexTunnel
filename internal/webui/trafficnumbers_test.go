@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
 )
 
 // The report these exist for arrived four times over: the per-second rates in

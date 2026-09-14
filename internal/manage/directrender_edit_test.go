@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 )
 
 // What a config written here must survive.

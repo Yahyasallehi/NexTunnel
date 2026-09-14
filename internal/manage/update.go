@@ -1,7 +1,7 @@
 package manage
 
 // Release-based updater. Backpack updates itself from GitHub release assets
-// (backpack_linux_amd64.tar.gz / backpack_linux_arm64.tar.gz). Every network
+// (stealthpass_linux_amd64.tar.gz / stealthpass_linux_arm64.tar.gz). Every network
 // step is tried in order:
 //
 //  1. direct GitHub
@@ -25,9 +25,9 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/socks"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/socks"
 )
 
 // Downloads go direct to GitHub, or through the tunnel relay when this machine
@@ -66,7 +66,7 @@ func relayHTTPClient(timeout time.Duration) *http.Client {
 			continue
 		}
 		if port := relayExposedPort(cfg.Server.Ports, cfg.Server.Token); port != "" {
-			return socks.HTTPClient("127.0.0.1:"+port, "backpack", cfg.Server.Token, timeout)
+			return socks.HTTPClient("127.0.0.1:"+port, "stealthpass", cfg.Server.Token, timeout)
 		}
 	}
 	return nil
@@ -261,7 +261,7 @@ func newerVersion(remote, local string) bool {
 }
 
 // CheckUpdate reports whether a newer release is published on GitHub. It works
-// the same regardless of how backpack was installed (release or git clone) —
+// the same regardless of how stealthpass was installed (release or git clone) —
 // the update itself always comes from the release assets.
 func CheckUpdate() (bool, string, error) {
 	tag, err := latestTag()
@@ -463,7 +463,7 @@ func extractBinaryTo(archive, dest string) error {
 		if err != nil {
 			return err
 		}
-		if hdr.Typeflag != tar.TypeReg || filepath.Base(hdr.Name) != "backpack" {
+		if hdr.Typeflag != tar.TypeReg || filepath.Base(hdr.Name) != "stealthpass" {
 			continue
 		}
 		out, err := os.OpenFile(dest, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0755)

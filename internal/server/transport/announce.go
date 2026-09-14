@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // Reading a connection's announcement off the accept path.

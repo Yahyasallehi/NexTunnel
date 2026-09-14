@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // What a tunnel's configuration used to be, and when it stopped being that.

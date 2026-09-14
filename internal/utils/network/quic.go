@@ -19,7 +19,7 @@ import (
 // quicALPN is the application protocol both ends advertise on the TLS handshake.
 // It has to match, or the handshake fails before a single tunnel byte flows —
 // which doubles as a cheap first filter against anything that is not us.
-const quicALPN = "backpack-quic"
+const quicALPN = "stealthpass-quic"
 
 // QUICSettings carries the tuning of a QUIC endpoint from the config down to the
 // socket. QUIC brings its own TLS 1.3, congestion control and loss recovery, so

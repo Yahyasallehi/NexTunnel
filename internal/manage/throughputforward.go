@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/backpack/backpack/internal/tui"
-	"github.com/backpack/backpack/internal/tunnel/portmap"
+	"github.com/stealthpass/stealthpass/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/tunnel/portmap"
 )
 
 // Measuring a port forwarder.

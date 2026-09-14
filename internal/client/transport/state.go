@@ -5,7 +5,7 @@ import (
 	"net"
 	"sync"
 
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/internal/web"
 	"github.com/gorilla/websocket"
 )
 

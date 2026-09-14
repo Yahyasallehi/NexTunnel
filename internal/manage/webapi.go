@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/optimize"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/optimize"
 )
 
 // Everything in this file exists so a caller outside the package — the web

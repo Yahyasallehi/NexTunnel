@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/tui"
 )
 
 // Measuring what a tunnel actually carries.

@@ -6,8 +6,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/web"
 	"github.com/sirupsen/logrus"
 )
 

@@ -40,9 +40,9 @@ func TestOnlyThisMachinesArchiveIsOffered(t *testing.T) {
 		other = "amd64"
 	}
 	for _, name := range []string{
-		"backpack.tar.gz",
-		"backpack_linux_" + other + ".tar.gz",
-		"backpack_linux_" + runtime.GOARCH + ".tgz",
+		"stealthpass.tar.gz",
+		"stealthpass_linux_" + other + ".tar.gz",
+		"stealthpass_linux_" + runtime.GOARCH + ".tgz",
 		"Backpack_linux_" + runtime.GOARCH + ".tar.gz",
 	} {
 		if err := os.WriteFile(filepath.Join(dir, name), []byte("x"), 0644); err != nil {
@@ -146,9 +146,9 @@ func TestAChecksumListThatDoesNotNameTheArchiveIsRefused(t *testing.T) {
 // The checksum list is only cleaned up when it describes nothing else.
 func TestAChecksumListCoveringAnotherArchiveIsKept(t *testing.T) {
 	dir := t.TempDir()
-	other := "backpack_linux_arm64.tar.gz"
+	other := "stealthpass_linux_arm64.tar.gz"
 	if runtime.GOARCH == "arm64" {
-		other = "backpack_linux_amd64.tar.gz"
+		other = "stealthpass_linux_amd64.tar.gz"
 	}
 	if err := os.WriteFile(filepath.Join(dir, other), []byte("x"), 0644); err != nil {
 		t.Fatal(err)
@@ -179,7 +179,7 @@ func TestTheOperatorIsToldWhereToPutTheFile(t *testing.T) {
 		t.Errorf("the first place searched is %q — /root is where somebody lands "+
 			"when they scp into a VPS, and it is what the instructions say", dirs[0])
 	}
-	if !strings.HasPrefix(LocalAssetName(), "backpack_linux_") ||
+	if !strings.HasPrefix(LocalAssetName(), "stealthpass_linux_") ||
 		!strings.HasSuffix(LocalAssetName(), ".tar.gz") {
 		t.Errorf("the asset name %q is not what a release publishes", LocalAssetName())
 	}

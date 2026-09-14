@@ -4,15 +4,15 @@ import (
 	"context"
 	"time"
 
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils"
 
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 
-	"github.com/backpack/backpack/internal/client/transport"
-	"github.com/backpack/backpack/internal/debugserver"
-	"github.com/backpack/backpack/internal/utils/handlers"
-	"github.com/backpack/backpack/internal/utils/network"
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/internal/client/transport"
+	"github.com/stealthpass/stealthpass/internal/debugserver"
+	"github.com/stealthpass/stealthpass/internal/utils/handlers"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/web"
 
 	"github.com/sirupsen/logrus"
 )
@@ -276,6 +276,102 @@ func (c *Client) Start() {
 		}
 		udpClient := transport.NewUDPClient(c.ctx, udpConfig, c.logger)
 		go udpClient.Start()
+
+	case config.VLESS:
+		// VLESS: TCP transport with VLESS protocol headers
+		tcpConfig := &transport.TcpConfig{
+			RemoteAddr:     c.config.RemoteAddr,
+			Endpoints:      endpoints,
+			Nodelay:        c.config.Nodelay,
+			KeepAlive:      time.Duration(c.config.Keepalive) * time.Second,
+			RetryInterval:  time.Duration(c.config.RetryInterval) * time.Second,
+			DialTimeOut:    time.Duration(c.config.DialTimeout) * time.Second,
+			ConnPoolSize:   c.config.ConnectionPool,
+			Token:          c.config.Token,
+			Sniffer:        c.config.Sniffer,
+			WebPort:        c.config.WebPort,
+			SnifferLog:     c.config.SnifferLog,
+			AggressivePool: c.config.AggressivePool,
+			MSS:            c.config.MSS,
+			SO_RCVBUF:      c.config.SO_RCVBUF,
+			SO_SNDBUF:      c.config.SO_SNDBUF,
+			Outbound:       outbound,
+			Stealth:        false,
+		}
+		tcpClient := transport.NewTCPClient(c.ctx, tcpConfig, c.logger)
+		go tcpClient.Start()
+
+	case config.TROJAN:
+		// Trojan: TCP transport with Trojan TLS wrapper
+		tcpConfig := &transport.TcpConfig{
+			RemoteAddr:     c.config.RemoteAddr,
+			Endpoints:      endpoints,
+			Nodelay:        c.config.Nodelay,
+			KeepAlive:      time.Duration(c.config.Keepalive) * time.Second,
+			RetryInterval:  time.Duration(c.config.RetryInterval) * time.Second,
+			DialTimeOut:    time.Duration(c.config.DialTimeout) * time.Second,
+			ConnPoolSize:   c.config.ConnectionPool,
+			Token:          c.config.Token,
+			Sniffer:        c.config.Sniffer,
+			WebPort:        c.config.WebPort,
+			SnifferLog:     c.config.SnifferLog,
+			AggressivePool: c.config.AggressivePool,
+			MSS:            c.config.MSS,
+			SO_RCVBUF:      c.config.SO_RCVBUF,
+			SO_SNDBUF:      c.config.SO_SNDBUF,
+			Outbound:       outbound,
+			Stealth:        false,
+		}
+		tcpClient := transport.NewTCPClient(c.ctx, tcpConfig, c.logger)
+		go tcpClient.Start()
+
+	case config.GRPC:
+		// gRPC: Bidirectional streams over HTTP/2
+		tcpConfig := &transport.TcpConfig{
+			RemoteAddr:     c.config.RemoteAddr,
+			Endpoints:      endpoints,
+			Nodelay:        true,
+			KeepAlive:      time.Duration(c.config.Keepalive) * time.Second,
+			RetryInterval:  time.Duration(c.config.RetryInterval) * time.Second,
+			DialTimeOut:    time.Duration(c.config.DialTimeout) * time.Second,
+			ConnPoolSize:   c.config.ConnectionPool,
+			Token:          c.config.Token,
+			Sniffer:        c.config.Sniffer,
+			WebPort:        c.config.WebPort,
+			SnifferLog:     c.config.SnifferLog,
+			AggressivePool: true,
+			MSS:            c.config.MSS,
+			SO_RCVBUF:      c.config.SO_RCVBUF,
+			SO_SNDBUF:      c.config.SO_SNDBUF,
+			Outbound:       outbound,
+			Stealth:        false,
+		}
+		tcpClient := transport.NewTCPClient(c.ctx, tcpConfig, c.logger)
+		go tcpClient.Start()
+
+	case config.GREALITY:
+		// Reality TLS: TCP with Chrome 120+ TLS fingerprint
+		tcpConfig := &transport.TcpConfig{
+			RemoteAddr:     c.config.RemoteAddr,
+			Endpoints:      endpoints,
+			Nodelay:        c.config.Nodelay,
+			KeepAlive:      time.Duration(c.config.Keepalive) * time.Second,
+			RetryInterval:  time.Duration(c.config.RetryInterval) * time.Second,
+			DialTimeOut:    time.Duration(c.config.DialTimeout) * time.Second,
+			ConnPoolSize:   c.config.ConnectionPool,
+			Token:          c.config.Token,
+			Sniffer:        c.config.Sniffer,
+			WebPort:        c.config.WebPort,
+			SnifferLog:     c.config.SnifferLog,
+			AggressivePool: c.config.AggressivePool,
+			MSS:            c.config.MSS,
+			SO_RCVBUF:      c.config.SO_RCVBUF,
+			SO_SNDBUF:      c.config.SO_SNDBUF,
+			Outbound:       outbound,
+			Stealth:        true,
+		}
+		tcpClient := transport.NewTCPClient(c.ctx, tcpConfig, c.logger)
+		go tcpClient.Start()
 
 	default:
 		c.logger.Fatal("invalid transport type: ", c.config.Transport)

@@ -11,14 +11,14 @@ import (
 	"sort"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/schedule"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/schedule"
 )
 
 // backupMetaName is a synthetic entry stored inside the archive (not written to
 // disk on restore) that captures settings living outside ConfigDir — currently
 // the auto-refresh interval, which is kept in the crontab.
-const backupMetaName = ".backpack-backup.json"
+const backupMetaName = ".stealthpass-backup.json"
 
 // backupMeta is the sidecar metadata embedded in every backup archive.
 type backupMeta struct {
@@ -171,7 +171,7 @@ const partialAge = time.Hour
 func pruneBackups(dir string) {
 	sweepPartials(dir)
 
-	matches, _ := filepath.Glob(filepath.Join(dir, "backpack-backup-*.tar.gz"))
+	matches, _ := filepath.Glob(filepath.Join(dir, "stealthpass-backup-*.tar.gz"))
 	if len(matches) <= backupRetention {
 		return
 	}
@@ -188,7 +188,7 @@ func pruneBackups(dir string) {
 // for as long as the host lives. They are named so they cannot be mistaken for
 // a backup and are not counted against the retention limit.
 func sweepPartials(dir string) {
-	matches, _ := filepath.Glob(filepath.Join(dir, ".backpack-backup-*.partial"))
+	matches, _ := filepath.Glob(filepath.Join(dir, ".stealthpass-backup-*.partial"))
 	for _, path := range matches {
 		info, err := os.Stat(path)
 		if err != nil || time.Since(info.ModTime()) < partialAge {
@@ -203,7 +203,7 @@ func sweepPartials(dir string) {
 // are pruned.
 // It is written to a temporary file in the same directory and renamed into
 // place once it is complete and on disk, so a name matching
-// backpack-backup-*.tar.gz is always a whole archive. Writing straight to the
+// stealthpass-backup-*.tar.gz is always a whole archive. Writing straight to the
 // final name meant an interrupted backup — a full disk, a reboot, a killed
 // process — left a truncated file sitting under a name that says otherwise,
 // which pruning then counts as one of the ten kept and a restore accepts as
@@ -221,7 +221,7 @@ func publishBackup(dir string, write func(io.Writer) error) (string, error) {
 		return "", err
 	}
 
-	tmp, err := os.CreateTemp(dir, ".backpack-backup-*.partial")
+	tmp, err := os.CreateTemp(dir, ".stealthpass-backup-*.partial")
 	if err != nil {
 		return "", err
 	}
@@ -276,9 +276,9 @@ func publishBackup(dir string, write func(io.Writer) error) (string, error) {
 func freeBackupPath(dir string) (string, error) {
 	stamp := time.Now().Format("20060102-150405")
 	for n := 0; n < 100; n++ {
-		name := fmt.Sprintf("backpack-backup-%s.tar.gz", stamp)
+		name := fmt.Sprintf("stealthpass-backup-%s.tar.gz", stamp)
 		if n > 0 {
-			name = fmt.Sprintf("backpack-backup-%s-%d.tar.gz", stamp, n)
+			name = fmt.Sprintf("stealthpass-backup-%s-%d.tar.gz", stamp, n)
 		}
 		path := filepath.Join(dir, name)
 		if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -320,7 +320,7 @@ func Restore(r io.Reader) (RestoreResult, error) {
 	// Beside the config directory, so the commit is a rename rather than a copy
 	// across filesystems — and so a restore cannot half-succeed for want of
 	// space somewhere else.
-	stage, err := os.MkdirTemp(filepath.Dir(app.ConfigDir), ".backpack-restore-*")
+	stage, err := os.MkdirTemp(filepath.Dir(app.ConfigDir), ".stealthpass-restore-*")
 	if err != nil {
 		return res, err
 	}

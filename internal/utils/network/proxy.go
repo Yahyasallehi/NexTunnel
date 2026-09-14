@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/socks"
+	"github.com/stealthpass/stealthpass/internal/socks"
 )
 
 // Reaching the tunnel server through a local proxy.

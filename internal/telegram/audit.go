@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // A record of every action taken through the bot.

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/metrics"
 )
 
 // A KCP or UDP tunnel carries no TCP sockets, so anything that decides "is it

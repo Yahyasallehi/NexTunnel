@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/alerthist"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/alerthist"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
 )
 
 // Alerting.
@@ -334,7 +334,7 @@ func releaseMessages(lang string) []string {
 	manage.MarkUpdateNotified(tag)
 	return []string{
 		fmt.Sprintf(tr(lang, "⬆️ Backpack %s has been released (you are on %s)."), tag, app.Version) +
-			"\n\n" + tr(lang, "Update from the CLI: sudo backpack → Update.") +
+			"\n\n" + tr(lang, "Update from the CLI: sudo stealthpass → Update.") +
 			"\n" + tr(lang, "It saves a restore point first and rolls back by itself if the tunnel does not come back up."),
 	}
 }

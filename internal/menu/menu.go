@@ -12,14 +12,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/localproxy"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/optimize"
-	"github.com/backpack/backpack/internal/schedule"
-	"github.com/backpack/backpack/internal/telegram"
-	"github.com/backpack/backpack/internal/tui"
-	"github.com/backpack/backpack/internal/webui"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/localproxy"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/optimize"
+	"github.com/stealthpass/stealthpass/internal/schedule"
+	"github.com/stealthpass/stealthpass/internal/telegram"
+	"github.com/stealthpass/stealthpass/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/webui"
 )
 
 // ipStore caches the server's public IPv4 so menus never block on a lookup.
@@ -916,7 +916,7 @@ func configureAlerts(cfg telegram.Config) {
 	fmt.Println()
 	tui.Info(a.Summary())
 	fmt.Println()
-	tui.Warn("Watched by the backpack-monitor service, which runs on its own —")
+	tui.Warn("Watched by the stealthpass-monitor service, which runs on its own —")
 	tui.Warn("alerts keep working even with the web panel stopped.")
 	tui.PressEnter()
 }
@@ -1310,7 +1310,7 @@ func uninstallMenu() {
 	tui.Title("Uninstall Backpack")
 	fmt.Println()
 	tui.Warn("This removes EVERYTHING: all tunnels, services, schedules, configs,")
-	tui.Warn("the backpack binary, AND the " + app.InstallDir + " folder (incl. backups).")
+	tui.Warn("the stealthpass binary, AND the " + app.InstallDir + " folder (incl. backups).")
 	if !tui.Confirm("Are you absolutely sure", false) {
 		return
 	}
@@ -1345,7 +1345,7 @@ func uninstallMenu() {
 
 func requireRoot() {
 	if os.Geteuid() != 0 {
-		tui.Error("Backpack must be run as root (use: sudo backpack).")
+		tui.Error("Backpack must be run as root (use: sudo stealthpass).")
 		os.Exit(1)
 	}
 }

@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Background update checking.

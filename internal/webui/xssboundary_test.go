@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/node"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/node"
 )
 
 // A name from a managed server must not be able to carry markup into the panel.

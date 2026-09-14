@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 	"github.com/gorilla/websocket"
 	utls "github.com/refraction-networking/utls"
 )

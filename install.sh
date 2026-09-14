@@ -2,10 +2,10 @@
 #
 # Backpack installer — one command on the VPS (as root):
 #
-#   bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/BackPack/main/install.sh)
+#   bash <(curl -fsSL https://raw.githubusercontent.com/AminMGMT/stealthpass/main/install.sh)
 #
 # It downloads the prebuilt release tar.gz for this architecture into
-# /root/BackPack and installs the binary, verifying it against the checksum
+# /root/stealthpass and installs the binary, verifying it against the checksum
 # published with the release. If run inside a source checkout and the download
 # fails, it builds from source as a last resort.
 #
@@ -16,7 +16,7 @@
 # one against the other would prove nothing.
 #
 # When it finishes it opens the menu automatically (on an interactive terminal).
-# Later, reopen it any time with:  sudo backpack
+# Later, reopen it any time with:  sudo stealthpass
 #
 set -euo pipefail
 
@@ -25,9 +25,9 @@ info() { echo -e "${WHITE}[*]${NC} $*"; }
 warn() { echo -e "${GRAY}[!]${NC} $*"; }
 err()  { echo -e "${RED}[x]${NC} $*" >&2; }
 
-REPO="AminMGMT/BackPack"
-BIN_PATH="/usr/local/bin/backpack"
-INSTALL_DIR="/root/BackPack"
+REPO="AminMGMT/stealthpass"
+BIN_PATH="/usr/local/bin/stealthpass"
+INSTALL_DIR="/root/stealthpass"
 GO_VERSION="1.24.5"
 # toolchain already on the machine is not usable for a source build.
 GO_MIN_MINOR=24
@@ -81,8 +81,8 @@ case "$(uname -m)" in
   *) err "Unsupported architecture: $(uname -m)"; exit 1 ;;
 esac
 
-ASSET="backpack_linux_${ARCH}.tar.gz"
-mkdir -p /etc/backpack "$INSTALL_DIR/backups"
+ASSET="stealthpass_linux_${ARCH}.tar.gz"
+mkdir -p /etc/stealthpass "$INSTALL_DIR/backups"
 
 # fetch <url> <out> — straight to GitHub, so TLS terminates there.
 fetch() {
@@ -176,10 +176,10 @@ install_release() {
 }
 
 install_binary_from_tar() {
-  tar -xzf "$INSTALL_DIR/$ASSET" -C "$INSTALL_DIR" backpack
-  install -m 0755 "$INSTALL_DIR/backpack" "$BIN_PATH"
-  rm -f "$INSTALL_DIR/backpack"
-  echo "$INSTALL_DIR" > /etc/backpack/install_path
+  tar -xzf "$INSTALL_DIR/$ASSET" -C "$INSTALL_DIR" stealthpass
+  install -m 0755 "$INSTALL_DIR/stealthpass" "$BIN_PATH"
+  rm -f "$INSTALL_DIR/stealthpass"
+  echo "$INSTALL_DIR" > /etc/stealthpass/install_path
 }
 
 # ---------------------------------------------------------------------------
@@ -215,7 +215,7 @@ build_from_source() {
   export GOSUMDB=off GOTOOLCHAIN=local
   info "Building from source (proxy order: direct first, then mirrors)."
   CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o "$BIN_PATH" .
-  echo "$INSTALL_DIR" > /etc/backpack/install_path
+  echo "$INSTALL_DIR" > /etc/stealthpass/install_path
 }
 
 if install_release; then
@@ -237,15 +237,15 @@ chmod +x "$BIN_PATH"
 echo
 echo -e "${WHITE}Done!${NC}"
 
-# Open the menu straight away — people miss the "now run sudo backpack" step.
+# Open the menu straight away — people miss the "now run sudo stealthpass" step.
 # Only when there is an interactive terminal to read from: a piped install
 # (curl ... | bash) has no tty on stdin, so it just prints the instruction. The
 # script already runs as root, so the binary is launched directly. `exec`
 # replaces this shell so the menu owns the terminal cleanly.
 if [ -t 0 ]; then
-  echo -e "Starting the menu... ${GRAY}(next time, just run ${NC}${RED}sudo backpack${GRAY})${NC}"
+  echo -e "Starting the menu... ${GRAY}(next time, just run ${NC}${RED}sudo stealthpass${GRAY})${NC}"
   echo
   exec "$BIN_PATH"
 else
-  echo -e "Open the menu with:  ${RED}sudo backpack${NC}"
+  echo -e "Open the menu with:  ${RED}sudo stealthpass${NC}"
 fi

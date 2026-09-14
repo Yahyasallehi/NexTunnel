@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 )
 
 // Stealth is one answer standing for several settings, and the reason it is one

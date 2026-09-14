@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/client"
-	"github.com/backpack/backpack/internal/server"
+	"github.com/stealthpass/stealthpass/internal/client"
+	"github.com/stealthpass/stealthpass/internal/server"
 )
 
 // A forwarded port has to carry UDP as well as TCP, on every transport.

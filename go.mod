@@ -1,4 +1,4 @@
-module github.com/backpack/backpack
+module github.com/stealthpass/stealthpass
 
 go 1.26.0
 

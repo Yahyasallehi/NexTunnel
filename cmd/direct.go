@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/tunnel/direct"
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/tunnel/direct"
+	"github.com/stealthpass/stealthpass/internal/utils"
 	"github.com/sirupsen/logrus"
 )
 

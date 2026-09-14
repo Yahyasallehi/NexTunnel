@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/client"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/server"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/client"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/server"
 )
 
 // kcpFromSpec mirrors the preset's KCP knobs into an engine config.

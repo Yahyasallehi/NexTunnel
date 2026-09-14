@@ -49,6 +49,24 @@ const (
 	// to the machinery doing it. KCP above supplies the reliability the absent
 	// stack would have. Linux only, and needs root or CAP_NET_RAW.
 	PCK TransportType = "pck"
+	// GRPC carries the tunnel inside bidirectional gRPC streams over HTTP/2.
+	// Every connection is a gRPC stream; the protocol has built-in multiplexing,
+	// encryption, and flow control. On the wire it is indistinguishable from normal
+	// HTTPS traffic, making it extremely hard to DPI. No TLS fingerprinting needed
+	// because gRPC over HTTP/2 already looks like a browser.
+	GRPC TransportType = "grpc"
+	// GREALITY is a TCP tunnel with Reality TLS fingerprinting. It spoofs the exact
+	// TLS 1.3 ClientHello of a real browser (Chrome 120+), making it undetectable
+	// by DPI. The server validates SNI against allowed domains before proceeding.
+	GREALITY TransportType = "greality"
+	// VLESS is an Xray-compatible protocol tunnel with token-based authentication.
+	// It is lightweight, fast, and has wide client support. Used for general-purpose
+	// tunneling with balanced speed and reliability.
+	VLESS TransportType = "vless"
+	// TROJAN is a lightweight tunnel protocol optimized for low-latency gaming.
+	// It has minimal overhead, fast authentication, and is ideal for high-speed paths.
+	// The server wraps it in TLS for authentication and encryption.
+	TROJAN TransportType = "trojan"
 )
 
 // KCPConfig holds the tuning of the KCP transport: a reliable, retransmitting
@@ -328,6 +346,34 @@ type ServerConfig struct {
 	// Embedded so the pck_* keys sit at the top level too. Only used when
 	// transport = "pck".
 	PckConfig
+	// SNISpoofConfig holds SNI rotation settings.
+	SNISpoofConfig
+}
+
+// GRPCConfig holds gRPC transport settings. gRPC rides on HTTP/2 and looks
+// like normal HTTPS traffic, making it extremely hard to DPI.
+type GRPCConfig struct {
+	TLSCertFile          string `toml:"grpc_tls_cert"`
+	TLSKeyFile           string `toml:"grpc_tls_key"`
+	MaxConcurrentStreams uint32 `toml:"grpc_max_streams"`
+}
+
+// RealityConfig holds Reality TLS fingerprinting settings. Reality spoofs
+// the exact TLS ClientHello of a real browser, making detection impossible.
+type RealityConfig struct {
+	RealityDomain  string `toml:"reality_domain"`
+	RealityShortID string `toml:"reality_short_id"`
+}
+
+// VLESSConfig holds VLESS transport settings (Xray-compatible).
+type VLESSConfig struct {
+	// Token auth is handled by the main Token field in ClientConfig/ServerConfig.
+}
+
+// TrojanConfig holds Trojan transport settings (gaming-optimized).
+type TrojanConfig struct {
+	TLSCertFile string `toml:"trojan_tls_cert"`
+	TLSKeyFile  string `toml:"trojan_tls_key"`
 }
 
 // ForwardsUDP reports whether the forwarded ports should carry UDP as well as
@@ -441,7 +487,6 @@ type ClientConfig struct {
 	// HealthFailover scores every configured address on a timer and keeps
 	// traffic on the healthiest — the multi-exit gaming behaviour. It needs more
 	// than one address to do anything, and it overrides LoadBalance, because
-	// steering to one best exit is the opposite of spreading across all of them.
 	HealthFailover bool `toml:"health_failover"`
 	// Embedded so the kcp_* keys sit at the top level of the [client] table
 	// alongside every other tuning key.
@@ -449,6 +494,8 @@ type ClientConfig struct {
 	// Embedded so the pck_* keys sit at the top level too. Only used when
 	// transport = "pck".
 	PckConfig
+	// SNISpoofConfig holds SNI rotation settings.
+	SNISpoofConfig
 }
 
 // Config represents the complete configuration, including both server and client settings.

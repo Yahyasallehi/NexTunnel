@@ -2,11 +2,11 @@ package manage
 
 import (
 	"fmt"
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 	"net"
 	"strings"
 
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // The advanced halves of the panel's setup and edit forms: the IP-spoofing

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/alerthist"
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/alerthist"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/metrics"
 )
 
 // Watchdog tuning.

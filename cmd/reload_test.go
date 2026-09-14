@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 	"github.com/sirupsen/logrus"
 )
 

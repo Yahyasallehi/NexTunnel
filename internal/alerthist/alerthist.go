@@ -1,7 +1,7 @@
 // Package alerthist keeps a small on-disk record of what the alert watcher has
 // fired: the conditions active right now and the most recent messages.
 //
-// The watcher lives in the backpack-monitor process and the web panel in its
+// The watcher lives in the stealthpass-monitor process and the web panel in its
 // own; a JSON file is the same decoupling the tunnel metrics already use. The
 // monitor writes, everyone else reads, and a missing file simply means nothing
 // has ever fired.
@@ -14,7 +14,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // maxEvents bounds the file: only the recent past is worth scrolling through,

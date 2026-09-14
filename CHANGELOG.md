@@ -2,103 +2,6 @@
 
 All notable changes to Backpack are documented here.
 
-## v1.8.1 — 2026-09-13
-
-Memory and descriptor fixes across the reverse transports, and the bugs found
-while proving them.
-
-The `udp` transport reserved a 100,000-datagram queue for every connection it
-saw. A
-Go channel allocates its whole buffer the moment it is made, so that was 2.3 MB
-committed per connection before a single byte had been forwarded — and a pooled
-connection may never forward one. A tunnel sitting idle with a pool of 64 held
-145 MB of a 153 MB heap; two hundred short-lived flows carrying six hundred
-packets between them took it past a gigabyte. The queue is 256 now, the depth
-the forwarded-UDP path had already settled on for the same job. Measured on the
-same tunnel: idle went from 153 MB to 4.6 MB, the 200-flow run from 1067 MB to
-9 MB, and the same traffic came back through it.
-
-Underneath that was a smaller leak no amount of waiting cleared. The first run's
-channels were fields on the transport, and a restart built fresh channels for
-the new run without ever replacing those fields — so the first run's queue, and
-every connection still parked in it, stayed reachable for the life of the
-process. It showed as 145 MB still held with no client connected and the run
-torn down, released only by restarting the server.
-
-Worth saying plainly, because the first reading of this was wrong: the flow
-tables themselves were never leaking. Idle flows are reaped, the goroutines that
-serve them exit, and a heap that reached 1067 MB under load came back to 151 MB
-on its own. What was wrong was the size of what each connection reserved, and
-one run's worth of it that was never let go.
-
-That second fault was not unique to `udp`. The same shape — `Start` taking the
-first run's channels from fields on the transport, and `Restart` building fresh
-channels without ever replacing those fields — is in `tcp`, `ws` and `quic` too,
-and there what it holds is sockets rather than bytes. On `tcp` the pool of idle
-tunnel connections waits in that channel to be paired, so the whole idle pool is
-what gets pinned: with a pool of 64, the server still held 64 open descriptors
-after the client had gone and the run had been torn down, and a forced garbage
-collection did not release them — an unreachable connection is closed by its
-finalizer, but these were still reachable from the struct. It is a one-shot cost
-rather than one that grows with every restart, and it scales with
-`connection_pool`, so it is eight descriptors on the default rather than
-sixty-four. After the fix the same tunnel comes back to its baseline seven on
-every cycle.
-
-`tcpmux`, `wsmux` and `kcp` carry the identical pattern and do not leak, which is
-worth writing down so it is not read later as an oversight: their handle loop
-takes each session off the channel the moment it arrives instead of holding it
-there until a forwarded connection needs one, so there is nothing queued at
-teardown to pin. They are left as they are.
-
-### Fixed
-
-- **A layer-3 tunnel with `paths` set came up and carried nothing.** Any value
-  above one — the option spreads the udp carrier over several sockets, for a
-  route that shapes per flow — produced a tunnel that completed its handshake,
-  logged an established session at both ends, and moved no data at all.
-
-  The merge layer hands one stable address upward rather than each path's own,
-  so that several sockets do not read to the tunnel as a peer roaming. The
-  dialling side knows that address when it is built; the listening side has
-  nobody to report yet and was passing nil. The tunnel learns where its peer is
-  from the address that arrives with a packet, and its outbound pump drops
-  everything while that is unset — so the handshake, which replies per path,
-  worked, and nothing else did. The listening side now pins the first address it
-  sees and reports that.
-
-  Every existing test for this layer drove it through an in-memory fake and none
-  asked what it reports when built without an address, which is how it shipped.
-  There is a test for exactly that now.
-
-- **The `udp` transport reserved 2.3 MB for every connection it saw.** The
-  payload queue was 100,000 datagrams deep, allocated in full the moment a
-  connection appeared, whether or not it ever carried traffic. It is 256 now —
-  deep enough to hold a session's opening packets while the flow waits to be
-  paired, which is what dropping there would cost, and bounded so a peer that
-  floods a stalled flow cannot grow the process without limit.
-
-- **A restart never released the first run's queue — on `udp`, `tcp`, `ws` and
-  `quic`.** `Start` took its channels from fields on the transport that
-  `Restart` did not replace. It builds its own generation now on all four,
-  exactly as `Restart` already did, and those channels and the usage monitor are
-  gone from the transport structs, so nothing outlives the run that made it. On
-  `udp` this was 145 MB still held with no client connected; on `tcp`, 64 open
-  sockets that only a server restart freed.
-
-- **A tunnel connection that failed a single write was lost rather than
-  replaced.** The error path left the connection's mutex locked for good — the
-  keepalive takes it with `TryLock`, so that connection could never be pinged
-  again — and left it in the active table with its queue never closed. It is
-  unlocked and dropped whole now, so the next one is tried.
-
-- **Cleanup could remove a newer flow recorded under the same address.** Both
-  teardown paths deleted by key without checking the entry was still theirs. A
-  peer that came back under an address that had just been reused had its new
-  flow deleted from the table while nothing closed it, so every later datagram
-  from it was filed against a queue no goroutine reads — the same stale-entry
-  failure the timeout path is careful to avoid. Both paths check identity now.
-
 ## v1.8.0 — 2026-09-09
 
 > Tagged v1.7.7.5 and v1.7.8 while it was being tested; this is the release.
@@ -1733,7 +1636,7 @@ cause.
   cannot drift apart again.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#12](https://github.com/AminMGMT/BackPack/pull/12). We reviewed that pull
+  [#12](https://github.com/AminMGMT/StealthPass/pull/12). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the
   result — the shared helper trims its input and states the bound as an
   inclusive range, so the edge the report was about is the one the code now
@@ -1761,7 +1664,7 @@ cause.
   begins to matter.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#26](https://github.com/AminMGMT/BackPack/pull/26). We reviewed that pull
+  [#26](https://github.com/AminMGMT/StealthPass/pull/26). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   the group is keyed on the parsed list rather than the raw target, so spacing
   and a trailing separator no longer each get a pool of their own, and the
@@ -1789,7 +1692,7 @@ cause.
   waiting for, was the one that then got none.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#11](https://github.com/AminMGMT/BackPack/pull/11). We reviewed that pull
+  [#11](https://github.com/AminMGMT/StealthPass/pull/11). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   `pck` did not exist when it was written and is a raw-socket transport too, so
   it joins `xdi` and `spoof` in being left out of the wait instead of spending
@@ -1817,7 +1720,7 @@ cause.
   direction will not get one.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#18](https://github.com/AminMGMT/BackPack/pull/18). We reviewed that pull
+  [#18](https://github.com/AminMGMT/StealthPass/pull/18). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result —
   the waiting and closing is one shared routine both handlers call rather than
   the same dozen lines written out twice, so the two relays cannot drift apart
@@ -1857,7 +1760,7 @@ cause.
   than looking like one reporting nothing.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#24](https://github.com/AminMGMT/BackPack/pull/24). We reviewed that pull
+  [#24](https://github.com/AminMGMT/StealthPass/pull/24). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   the pull request bound the page to loopback outright, with nothing an
   operator could do about it. Anyone watching that page from another machine
@@ -1883,7 +1786,7 @@ cause.
   for something that will actually come.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#29](https://github.com/AminMGMT/BackPack/pull/29). We reviewed that pull
+  [#29](https://github.com/AminMGMT/StealthPass/pull/29). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   the read and write deadlines it put on the profiling server are gone, because
   a CPU profile is a thirty-second response by default and a trace is longer —
@@ -1915,7 +1818,7 @@ cause.
   and was not.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#27](https://github.com/AminMGMT/BackPack/pull/27). We reviewed that pull
+  [#27](https://github.com/AminMGMT/StealthPass/pull/27). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   the directory entry is fsynced after the rename as well, because syncing only
   the file leaves the rename itself able to reach the disk after a crash and
@@ -1958,7 +1861,7 @@ cause.
   still wins over the archived one.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#28](https://github.com/AminMGMT/BackPack/pull/28). We reviewed that pull
+  [#28](https://github.com/AminMGMT/StealthPass/pull/28). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   it swapped the config tree without first copying the current one in, so
   restoring an older archive would have deleted every file added since it was
@@ -1995,7 +1898,7 @@ cause.
   connection that opens and then says nothing runs into.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#23](https://github.com/AminMGMT/BackPack/pull/23). We reviewed that pull
+  [#23](https://github.com/AminMGMT/StealthPass/pull/23). We reviewed that pull
   request, finished it and improved on it, and what shipped here is the result:
   `Secure` is set on evidence of TLS — this connection, or a panel configured
   for HTTPS — and never on `X-Forwarded-Proto`, which anyone can send and which
@@ -2019,7 +1922,7 @@ cause.
   the loop reads on.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#22](https://github.com/AminMGMT/BackPack/pull/22). We reviewed that pull
+  [#22](https://github.com/AminMGMT/StealthPass/pull/22). We reviewed that pull
   request and took the part of it that fixes the crash. The rest of it changes
   how live tunnels behave — read limits on the tunnel connections, a shorter
   handshake timeout, and replacing the deliberate `IdleTimeout: -1` on the
@@ -2065,7 +1968,7 @@ cause.
   creates that file and now closes it.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#25](https://github.com/AminMGMT/BackPack/pull/25). We reviewed that pull
+  [#25](https://github.com/AminMGMT/StealthPass/pull/25). We reviewed that pull
   request; the largest thing in it — the shared tunnel-status string, rewritten
   by transports while the stats endpoint read it — had already been fixed here
   since, so what shipped is the rest of it, reviewed and finished. The
@@ -2094,7 +1997,7 @@ cause.
   responder at all.
 
   *Thanks to [@dr-hoseyn](https://github.com/dr-hoseyn), who raised this in
-  [#21](https://github.com/AminMGMT/BackPack/pull/21). We reviewed that pull
+  [#21](https://github.com/AminMGMT/StealthPass/pull/21). We reviewed that pull
   request and took the problem it identified rather than its solution. It
   builds a registry with reference-counted leases, a retry loop and a scheme
   for sharing the challenge port between separate processes — several hundred
@@ -2114,7 +2017,7 @@ plus quic, which joins them.
 
 ### Fixed
 - **A forwarded port carries UDP now, on every transport.** This is the one
-  reported as "UDP does not pass through BackPack" with 3x-ui/Xray and
+  reported as "UDP does not pass through StealthPass" with 3x-ui/Xray and
   Shadowsocks, worked around by building a GRE tunnel underneath and running
   Backpack over that. The workaround was sound and the diagnosis was right: the
   UDP was never reaching Backpack's forwarded port, because nothing was
@@ -3220,12 +3123,12 @@ that remembers, and two bugs that made a KCP tunnel look broken are fixed.
   and from the panel itself (Settings → Panel port, with auto-redirect).
 - **Release-based install & updates.** `install.sh` now installs the prebuilt
   `backpack_linux_amd64.tar.gz` / `backpack_linux_arm64.tar.gz` release assets
-  into **`/root/BackPack`**, and the in-app **Update** detects newer versions
+  into **`/root/StealthPass`**, and the in-app **Update** detects newer versions
   from GitHub releases and installs them — trying **direct → tunnel SOCKS relay
   → public mirrors**, so it works from Iran without Go or git on the server.
   Works for old clone-based installs too: run Update once from ≤ v1.2.0 (final
   git pull + rebuild) and every update after that comes from the releases.
-- **Backups folder.** Backups now live in **`/root/BackPack/backups`** by
+- **Backups folder.** Backups now live in **`/root/StealthPass/backups`** by
   default, and Restore lists the archives there so you just pick one.
 - Port entries are **validated** before they reach a config (`443`, `400-450`,
   `443=1.1.1.1:443`, …) — a bad entry used to crash-loop the tunnel service.

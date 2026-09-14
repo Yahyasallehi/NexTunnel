@@ -3,8 +3,8 @@ package manage
 import (
 	"fmt"
 
-	"github.com/backpack/backpack/internal/tui"
-	"github.com/backpack/backpack/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/tui"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
 )
 
 // ExitHealth scores every server address a client tunnel can use and ranks them,

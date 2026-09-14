@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/metrics"
 	"github.com/sirupsen/logrus"
 	"github.com/xtaci/smux"
 )

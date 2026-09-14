@@ -16,12 +16,12 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/socks"
-	"github.com/backpack/backpack/internal/telegram"
-	"github.com/backpack/backpack/internal/tunhist"
-	"github.com/backpack/backpack/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/socks"
+	"github.com/stealthpass/stealthpass/internal/telegram"
+	"github.com/stealthpass/stealthpass/internal/tunhist"
+	"github.com/stealthpass/stealthpass/internal/utils"
 	"github.com/sirupsen/logrus"
 )
 
@@ -34,7 +34,7 @@ import (
 // under normal operation.
 func Run() {
 	logger := utils.NewLogger("info")
-	logger.Info("backpack monitor started")
+	logger.Info("stealthpass monitor started")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -75,7 +75,7 @@ func Run() {
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
 	<-sig
 
-	logger.Info("backpack monitor stopping")
+	logger.Info("stealthpass monitor stopping")
 	cancel()
 	wg.Wait()
 }

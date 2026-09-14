@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
-	"github.com/backpack/backpack/internal/manage"
-	"github.com/backpack/backpack/internal/metrics"
-	"github.com/backpack/backpack/internal/sysstat"
+	"github.com/stealthpass/stealthpass/internal/app"
+	"github.com/stealthpass/stealthpass/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/sysstat"
 )
 
 // handlePrometheus serves the numbers in Prometheus text exposition format,
@@ -23,11 +23,11 @@ func (s *server) handlePrometheus(w http.ResponseWriter, r *http.Request) {
 
 	m := sysstat.Get()
 	gauge(&b, "backpack_cpu_percent", "CPU usage percent", m.CPUPercent)
-	gauge(&b, "backpack_mem_percent", "Memory usage percent", m.MemPercent)
-	gauge(&b, "backpack_swap_percent", "Swap usage percent", m.SwapPercent)
-	gauge(&b, "backpack_disk_percent", "Disk usage percent", m.DiskPercent)
+	gauge(&b, "stealthpass_mem_percent", "Memory usage percent", m.MemPercent)
+	gauge(&b, "stealthpass_swap_percent", "Swap usage percent", m.SwapPercent)
+	gauge(&b, "stealthpass_disk_percent", "Disk usage percent", m.DiskPercent)
 	gauge(&b, "backpack_uptime_seconds", "System uptime in seconds", m.Uptime.Seconds())
-	gauge(&b, "backpack_monitor_running", "1 when the backpack-monitor service is active",
+	gauge(&b, "backpack_monitor_running", "1 when the stealthpass-monitor service is active",
 		boolVal(manage.MonitorRunning()))
 
 	tunnels := manage.List()

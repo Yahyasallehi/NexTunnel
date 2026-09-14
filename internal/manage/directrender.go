@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/backpack/backpack/config"
+	"github.com/stealthpass/stealthpass/config"
 )
 
 // Rendering the two new kinds of config.

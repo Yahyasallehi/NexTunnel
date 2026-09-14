@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Which tunnels have their other end on a managed server.

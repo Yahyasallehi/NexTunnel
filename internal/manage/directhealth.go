@@ -4,7 +4,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // Is a direct tunnel up?

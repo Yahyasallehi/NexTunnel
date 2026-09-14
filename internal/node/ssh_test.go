@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/backpack/backpack/internal/manage"
+	"github.com/stealthpass/stealthpass/internal/manage"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -48,7 +48,7 @@ type fakeServer struct {
 // panel meets when it reaches a server that has not been upgraded yet.
 const oldNodeUsage = `unknown command "exec"
 
-backpack node — connect this server to a Backpack panel
+backpack node — connect this server to a StealthPass panel
 
   backpack node setup --panel <host:port> --key <setup-key>
         Register this server with a panel and start the agent.

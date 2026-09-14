@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/backpack/backpack/internal/utils/network"
-	"github.com/backpack/backpack/internal/web"
+	"github.com/stealthpass/stealthpass/internal/utils/network"
+	"github.com/stealthpass/stealthpass/internal/web"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
 )

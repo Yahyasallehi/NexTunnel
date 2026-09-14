@@ -6,14 +6,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/backpack/backpack/internal/metrics"
+	"github.com/stealthpass/stealthpass/internal/metrics"
 
-	"github.com/backpack/backpack/config"
-	"github.com/backpack/backpack/internal/client"
+	"github.com/stealthpass/stealthpass/config"
+	"github.com/stealthpass/stealthpass/internal/client"
 
-	"github.com/backpack/backpack/internal/server"
-	"github.com/backpack/backpack/internal/utils"
-	"github.com/backpack/backpack/internal/utils/handlers"
+	"github.com/stealthpass/stealthpass/internal/server"
+	"github.com/stealthpass/stealthpass/internal/utils"
+	"github.com/stealthpass/stealthpass/internal/utils/handlers"
 
 	"github.com/BurntSushi/toml"
 )

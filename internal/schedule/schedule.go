@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/backpack/backpack/internal/app"
+	"github.com/stealthpass/stealthpass/internal/app"
 )
 
 // HourlySpec returns a cron schedule string that fires every `hours` hours.
